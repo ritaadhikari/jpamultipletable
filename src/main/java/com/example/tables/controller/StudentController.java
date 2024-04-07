@@ -7,7 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+
+
 import java.util.List;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/student")
@@ -15,22 +21,76 @@ import java.util.List;
 public class StudentController {
 
     public final StudentService studentService;
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    private static final String name = "Rita Adhikari";
+    String j;
+
+    String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @PostMapping
-    public ResponseEntity<StudentDto> addStudent(@RequestBody StudentDto studentDto){
+    public ResponseEntity<StudentDto> addStudent(@RequestBody StudentDto studentDto) {
         return new ResponseEntity<>(studentService.createStudent(studentDto), HttpStatus.CREATED);
 
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentDto>> getAllStudents(){
+    public ResponseEntity<List<StudentDto>> getAllStudents() {
 
         List<StudentDto> students = studentService.getAllStudents();
-        return ResponseEntity.ok(students);
+        return ok(students);
+    }
+
+    @GetMapping("/greeting")
+    public StudentService.Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return new StudentService.Greeting(counter.incrementAndGet(), String.format(template, name));
+    }
+
+    @GetMapping("/name")
+        public String cars() {
+        String j="";
+        for (int i = 0; i < cars.length; i++) {
+           j = cars[i];
+            System.out.println(cars[i]);
+
+        }
+        return cars[3];
+    }
+
+    @GetMapping("/find/{dept}")
+    public ResponseEntity<List<StudentDto>> findAllByDept(@PathVariable("dept") String dept){
+        List<StudentDto> students = studentService.findAllByDept(dept);
+        return ok(students);
+
+    }
+    @GetMapping("/find/student/{dept}")
+    public ResponseEntity<List<StudentDto>> findAllStudentByDept(@PathVariable("dept") String dept){
+        List<StudentDto> students = studentService.findAllByDept(dept);
+        return ok(students);
+
+    }
+    @PutMapping("/{id}/change")
+    public ResponseEntity<StudentDto> change(@PathVariable Long id ,@RequestBody Map<String,String> request){
+        String name = request.get("name");
+        StudentDto studentDto = studentService.change(id,name);
+
+        return ResponseEntity.ok(studentDto);
+    }
+//    @DeleteMapping("{dept}")
+//    public ResponseEntity<String> deleteStudent(@PathVariable String dept){
+//        studentService.deleteStudent(dept);
+//        return ResponseEntity.ok("Student is deleted sucessfully");
+//    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable Long id){
+        studentService.deleteStudentById(id);
+        return ResponseEntity.ok("Student is deleted sucessfully");
     }
 }
-

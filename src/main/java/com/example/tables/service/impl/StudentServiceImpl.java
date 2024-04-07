@@ -28,8 +28,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByNameContaining(String name) {
-        return List.of();
+    public List<StudentDto> findAllByDept(String dept) {
+        List<Student> students =studentRepository.findAllByDept(dept);
+        return students.stream().map((student) -> StudentMapper.mapToStudentDto(student)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StudentDto> findAllStudentByDept(String dept) {
+        List<Student> students =studentRepository.findAllStudentByDept(dept);
+        return students.stream().map((student) -> StudentMapper.mapToStudentDto(student)).collect(Collectors.toList());
+
     }
 
     @Override
@@ -37,5 +45,29 @@ public class StudentServiceImpl implements StudentService {
         List<Student> students = studentRepository.findAll();
         return students.stream().map((student) -> StudentMapper.mapToStudentDto(student)).collect(Collectors.toList());
     }
+
+    @Override
+    public StudentDto change(Long id, String name) {
+        Student student = studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student does not exist"));
+//        String updateName = student.getName() + name;
+        student.setName(name);
+        Student savedName = studentRepository.save(student);
+        return StudentMapper.mapToStudentDto(savedName);
+    }
+
+    @Override
+    public void deleteStudentById(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student does not exist"));
+        studentRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteStudent(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student does not exist"));
+        studentRepository.deleteById(id);
+
+    }
+
+
 
 }

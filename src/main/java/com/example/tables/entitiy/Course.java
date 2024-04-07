@@ -17,7 +17,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class Course {
     @Id
-    @GeneratedValue
     private Long id;
 
     @NotNull

@@ -7,8 +7,19 @@ import java.util.List;
 
 public interface StudentService {
     StudentDto createStudent(StudentDto studentDto);
-    List<Student> findByNameContaining(String name);
+
+    List<StudentDto> findAllByDept(String dept);
+    List<StudentDto> findAllStudentByDept(String dept);
 
 
     List<StudentDto> getAllStudents();
+
+    StudentDto change(Long id, String name);
+    void deleteStudent(Long id);
+
+    void deleteStudentById(Long id);
+
+    public record Greeting(long id, String content) { }
+
+
 }
