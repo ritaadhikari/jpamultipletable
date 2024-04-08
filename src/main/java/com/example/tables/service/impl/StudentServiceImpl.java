@@ -60,6 +60,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student does not exist"));
         studentRepository.deleteById(id);
     }
+//    .orElseThrow(() -> new BookNotFoundException());
 
     @Override
     public void deleteStudent(Long id) {

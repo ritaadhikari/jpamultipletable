@@ -1,14 +1,18 @@
 package com.example.tables.dto;
 
 import com.example.tables.entitiy.Course;
+import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.Set;
 
 @Data
 public class StudentDto {
+    @Column(nullable = false)
     private Long id;
+    @Column(nullable = false,length = 60,unique = true)
     private String name;
+    @Column(nullable = false,length = 20)
     private int age;
     private String dept;
     private Set<Course> courses;

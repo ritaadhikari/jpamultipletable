@@ -2,6 +2,7 @@ package com.example.tables.service;
 
 import com.example.tables.dto.StudentDto;
 import com.example.tables.entitiy.Student;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface StudentService {
 
 
     List<StudentDto> getAllStudents();
+//    Page<StudentDto> getAllStudents();
+
 
     StudentDto change(Long id, String name);
     void deleteStudent(Long id);

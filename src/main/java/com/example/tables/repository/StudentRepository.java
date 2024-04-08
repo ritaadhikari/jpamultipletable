@@ -2,6 +2,7 @@ package com.example.tables.repository;
 
 import com.example.tables.dto.StudentDto;
 import com.example.tables.entitiy.Student;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
 
     void deleteBydept(String dept);
 
+
+    @JsonIgnore
     Optional<Student> findByDept(String dept);
 }
