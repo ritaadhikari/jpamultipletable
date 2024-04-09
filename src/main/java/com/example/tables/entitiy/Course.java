@@ -8,6 +8,7 @@ import lombok.* ;
 //import org.antlr.v4.runtime.misc.NotNull;
 
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,6 +29,6 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses",fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Student> students;
+    private List<Student> students;
 
 }

@@ -3,10 +3,13 @@ package com.example.tables.dto;
 import com.example.tables.entitiy.Course;
 import jakarta.persistence.Column;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
 public class StudentDto {
     @Column(nullable = false)
     private Long id;
@@ -15,9 +18,9 @@ public class StudentDto {
     @Column(nullable = false,length = 20)
     private int age;
     private String dept;
-    private Set<Course> courses;
+    private List<Course> courses;
 
-    public StudentDto(Long id, String name, int age, String dept, Set<Course> courses) {
+    public StudentDto(Long id, String name, int age, String dept, List<Course> courses) {
         this.id = id;
         this.name = name;
         this.age = age;

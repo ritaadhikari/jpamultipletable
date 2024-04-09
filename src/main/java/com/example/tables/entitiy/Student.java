@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,6 +36,6 @@ public class Student {
                     @JoinColumn(name = "course_id", referencedColumnName = "id")
             }
     )
-    private Set<Course> courses;
+    private List<Course> courses;
 
 }

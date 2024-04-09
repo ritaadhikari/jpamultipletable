@@ -6,6 +6,11 @@ import com.example.tables.entitiy.Student;
 public class StudentMapper {
 
     public static Student mapToStudent(StudentDto studentDto) {
+
+        if(studentDto == null){
+            throw new NullPointerException("The student Dto is null");
+        }
+
         Student student = new Student(
                 studentDto.getId(),
                 studentDto.getName(),
@@ -19,7 +24,7 @@ public class StudentMapper {
     public static StudentDto mapToStudentDto(Student student) {
         StudentDto studentDto =new StudentDto(
                 student.getId(),
-                student.getName(),
+                student.getName() ,
                 student.getAge(),
                 student.getDept(),
                 student.getCourses()
